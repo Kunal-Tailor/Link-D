@@ -9,6 +9,7 @@ import styles from "./index.module.css"
 import { BASE_URL } from '@/config';
 import { resetPostId } from '@/config/redux/reducer/postReducer';
 import { toast } from "react-toastify";
+import { useTheme } from '@/contexts/ThemeContext';
 
 function Dashboard() {
     const router=useRouter();
@@ -16,6 +17,7 @@ function Dashboard() {
     const dispatch=useDispatch();
 
     const authState=useSelector((state)=>state.auth)
+    const { colors } = useTheme();
 
     // const [isTokenThere,setIsTokenThere]=useState(false);
 
@@ -41,6 +43,7 @@ function Dashboard() {
 const [selectedPost, setSelectedPost] = useState(null);
 const [hoveredComment, setHoveredComment] = useState(null);
 const [likedPosts, setLikedPosts] = useState({});
+const [isLiking, setIsLiking] = useState({});
    const handleUpload=async()=>{
 
      dispatch(createPost({file:fileContent,body:postContent}))
@@ -111,7 +114,7 @@ const [likedPosts, setLikedPosts] = useState({});
                           <img className={styles.userProfile} src={`${BASE_URL}/${post.userId.profilePicture}`} alt="" />
                           <div>
                             <div style={{display:"flex",gap:"1.2rem", justifyContent:"space-between"}}>
-                              <p style={{fontWeight: "bold"}}>{post.userId.name}</p>
+                              <p style={{fontWeight: "bold", color: colors.text}}>{post.userId.name}</p>
 
                               {post.userId._id===authState.user.userId._id && <div onClick={async ()=>{
                                 await dispatch(deletePost({post_id:post._id}));
@@ -126,8 +129,8 @@ const [likedPosts, setLikedPosts] = useState({});
 
 
 
-                            <p style={{color: "gray"}}>@{post.userId.username}</p>
-                            <p style={{paddingTop:"1.3rem"}}>{post.body}</p>
+                            <p style={{color: colors.textSecondary}}>@{post.userId.username}</p>
+                            <p style={{paddingTop:"1.3rem", color: colors.text}}>{post.body}</p>
 
                             <div className={styles.singleCard_image}>
                               <img src={`${BASE_URL}/${post.media}`} alt="" />
@@ -135,18 +138,29 @@ const [likedPosts, setLikedPosts] = useState({});
 
                             <div className={styles.optionsContainer}>
                               <div onClick={async () => {
-    await dispatch(togglePostLike({ 
-      post_id: post._id, 
-      user_id: authState.user.userId._id
-    }));
+    // Prevent multiple clicks
+    if (isLiking[post._id]) return;
+    
+    setIsLiking(prev => ({ ...prev, [post._id]: true }));
+    
+    try {
+      await dispatch(togglePostLike({ 
+        post_id: post._id, 
+        user_id: authState.user.userId._id
+      }));
 
-    setLikedPosts((prev) => ({
-      ...prev,
-      [post._id]: !(prev[post._id] ?? hasLiked)
-    }));
+      setLikedPosts((prev) => ({
+        ...prev,
+        [post._id]: !(prev[post._id] ?? hasLiked)
+      }));
 
-    await dispatch(getAllPosts());
-  }}  className={styles.single_optionContainer} style={{cursor:"pointer"}}>
+      await dispatch(getAllPosts());
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    } finally {
+      setIsLiking(prev => ({ ...prev, [post._id]: false }));
+    }
+  }}  className={styles.single_optionContainer} style={{cursor: isLiking[post._id] ? "not-allowed" : "pointer", opacity: isLiking[post._id] ? 0.6 : 1}}>
                             <div 
     style={{ 
       backgroundColor: (likedPosts[post._id] ?? hasLiked) ? "#E6F0FA" : "transparent",
@@ -191,7 +205,7 @@ const [likedPosts, setLikedPosts] = useState({});
     </svg>
 
     {/* Like count */}
-    <span style={{ color: "black" }}>
+    <span style={{ color: colors.text }}>
       {post.likes}
     </span>
   </div>
@@ -282,16 +296,16 @@ const [likedPosts, setLikedPosts] = useState({});
       <div className={styles.singlecomment_profileContainer}>
         {/* <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt="" /> */}
         <div>
-          <p  style={{fontWeight:"bold"}}   >{comment.userId.name}</p>
-          <p>@{comment.userId.username}</p>
+          <p style={{fontWeight:"bold", color: colors.text}}>{comment.userId.name}</p>
+          <p style={{color: colors.textSecondary}}>@{comment.userId.username}</p>
         </div>
       </div>
 
-      <p>{comment.body}</p>
+      <p style={{color: colors.text}}>{comment.body}</p>
 
       {isAuthor && hoveredComment === comment._id && (
         <span
-           style={{ cursor: 'pointer', color: 'red', fontSize: '20px', display: 'block' }}
+           style={{ cursor: 'pointer', color: colors.error, fontSize: '20px', display: 'block' }}
           className={styles.deleteIcon}
           onClick={async () => {
            

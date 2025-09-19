@@ -1,89 +1,124 @@
+/* Main container for the connections page */
+.container {
+    padding: 2rem;
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Tab navigation */
+.tabContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tab {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #65676b;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.activeTab {
+    background-color: #0a66c2;
+    color: #ffffff;
+}
+
+/* Section Title */
+.sectionTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1c1e21;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #0a66c2;
+    display: inline-block;
+}
+
+/* User Card */
 .userCard {
     display: flex;
+    align-items: center;
+    justify-content: space-between; /* To space out content and button */
+    gap: 1.5rem;
     width: 100%;
     padding: 1.5rem;
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.userCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.userCardInfoContainer {
+    display: flex;
     align-items: center;
-    gap: 1.2rem;
-  }
-  
-  .userCard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    background-color: #f9f9f9;
-  }
-  
-  .profilePicture > img {
+    gap: 1.5rem;
+    cursor: pointer;
+}
+
+.profilePicture {
     width: 70px;
     height: 70px;
-    object-fit: cover;
     border-radius: 50%;
-    border: 2px solid #e1e1e1;
-  }
-  
-  .userCardInfo {
-    flex-grow: 1;
-  }
-  
-  .userCardInfo h2 {
-    font-size: 1.2rem;
+    overflow: hidden;
+}
+
+.profilePicture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.userCardInfo h2 {
+    font-size: 1.3rem;
     font-weight: 600;
+    color: #1c1e21;
     margin: 0;
-    color: #222;
-  }
-  
-  .userCardInfo p {
-    margin: 0.2rem 0 0;
-    font-size: 0.9rem;
-    color: #777;
-  }
-  
-  .connectedButton {
-    padding: 0.5rem 1.2rem;
-    background-color: #0073b1;
+}
+
+.userCardInfo p {
+    font-size: 1rem;
+    color: #65676b;
+    margin: 0.2rem 0 0 0;
+}
+
+/* Buttons */
+.connectedButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #0a66c2;
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .connectedButton:hover {
-    background-color: #005e93;
-    transform: scale(1.05);
-  }
-  
-  /* Section title styling */
-  .sectionTitle {
-    font-size: 1.3rem;
-    margin: 1rem 0 0.5rem;
-    color: #2c2c2c;
+    font-size: 1rem;
     font-weight: 600;
-  }
-  
-  
-  /* Responsive tweaks */
-  @media (max-width: 600px) {
-    .userCard {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem;
-    }
-  
-    .profilePicture > img {
-      width: 60px;
-      height: 60px;
-    }
-  
-    .connectedButton {
-      width: 100%;
-      margin-top: 0.8rem;
-    }
-  }
-  
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.connectedButton:hover {
+    background-color: #004a94;
+}
+
+/* Empty state message */
+.emptyMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #65676b;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}

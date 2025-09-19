@@ -1,0 +1,80 @@
+.themeToggle {
+  position: relative;
+  width: 60px;
+  height: 32px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+
+.toggleTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.light .toggleTrack {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.dark .toggleTrack {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.lightThumb {
+  transform: translateX(0);
+  color: #f59e0b;
+}
+
+.darkThumb {
+  transform: translateX(28px);
+  color: #1e40af;
+  background: #1e293b;
+}
+
+.themeToggle:hover .toggleThumb {
+  transform: scale(1.05);
+}
+
+.light:hover .toggleThumb {
+  transform: translateX(0) scale(1.05);
+}
+
+.dark:hover .toggleThumb {
+  transform: translateX(28px) scale(1.05);
+}
+
+.themeToggle:active .toggleThumb {
+  transform: scale(0.95);
+}
+
+.light:active .toggleThumb {
+  transform: translateX(0) scale(0.95);
+}
+
+.dark:active .toggleThumb {
+  transform: translateX(28px) scale(0.95);
+}
+

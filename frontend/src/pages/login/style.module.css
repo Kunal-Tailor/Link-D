@@ -4,39 +4,58 @@
     justify-content: center;
     height: 90vh;
     align-items: center;
-    background: snow;
+    background: var(--color-background);
+    transition: background-color var(--transition-normal);
 }
 
 .cardContainer{
     height: 80vh;
     display: flex;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
     width: 80vw;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 10px 10px 15px rgb(173, 173, 173);
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop);
+    -webkit-backdrop-filter: var(--glass-backdrop);
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: all var(--transition-normal);
 }
 
 .cardContainer_left{
     flex:.6;
     padding: 2rem;
     text-align: center;
-
+    background: var(--color-surface);
+    transition: background-color var(--transition-normal);
 }
     .cardleft_heading{
         font-weight: bold;
         font-size: 1.8rem;
+        color: var(--color-text);
+        transition: color var(--transition-normal);
     }
 
     .inputField{
         padding-inline: 1.3rem;
         padding-block: .8rem;
         outline: none;
-        border-radius: 10px;
-        border: 1px solid #b2b2b2;
+        border-radius: 12px;
+        border: 1px solid var(--color-border);
+        background: var(--color-surface-elevated);
+        color: var(--color-text);
         width: 100%;
+        transition: all var(--transition-normal);
     }
+
+.inputField:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.1);
+}
+
+.inputField::placeholder {
+    color: var(--color-text-secondary);
+}
 
     .inputContainers{
         display: flex;
@@ -58,15 +77,29 @@
     
     .buttoWithOutline{
         padding: .8rem 1.3rem;
-        background: rgb(236, 236, 236);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        color: white;
         width: 100%;
-        border-radius: 10px;
+        border-radius: 12px;
         cursor: pointer;
+        border: none;
+        font-weight: 600;
+        transition: all var(--transition-normal);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
+
+.buttoWithOutline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.buttoWithOutline:active {
+    transform: translateY(0);
+}
 
 .cardContainer_right{
     flex: 0.4;
-    background: #004182;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,11 +107,12 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 2rem;
-    transition: background 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .cardContainer_right p {
     font-size: 1.1rem;
+    font-weight: 500;
   }
 
   

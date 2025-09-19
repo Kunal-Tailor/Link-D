@@ -1,95 +1,166 @@
-.userProfile {
-  max-width: 800px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  align-items: center;
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+/* Container for the whole discover page */
+.container {
+  width: 100%;
+  padding: 2rem;
+  background: transparent;
+  min-height: calc(100vh - 8rem);
+  transition: background-color var(--transition-normal);
 }
 
+/* Heading for the Discover section */
+.discoverHeading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  transition: color var(--transition-normal);
+}
+
+/* Grid container for user cards */
+.userProfile {
+  max-width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Individual User Card */
 .userCard {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  width: 100%;
-  padding: 1rem 1.5rem;
-  background-color: #ffffff;
-  border-radius: 0.8rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border: var(--glass-border);
+  border-radius: 20px;
+  transition: all var(--transition-normal);
+  box-shadow: var(--glass-shadow);
   cursor: pointer;
-  border: 1px solid #e6e6e6;
-  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .userCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(10, 102, 194, 0.2);
-  border-color: #0a66c2;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
+.dark .userCard:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.userCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.userCard:hover::before {
+  opacity: 1;
+}
+
+/* User's profile image in the card */
 .userCard_img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #0a66c2;
-  transition: border-color 0.3s ease;
+  border: 3px solid var(--color-primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  transition: all var(--transition-normal);
 }
 
 .userCard:hover .userCard_img {
-  border-color: #004182;
+  transform: scale(1.05);
+  border-color: var(--color-secondary);
 }
 
+/* User's name */
 .userCard h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #0a66c2;
-  margin: 0 0 0.2rem;
-  transition: color 0.3s ease;
+  color: var(--color-text);
+  margin: 0.5rem 0 0.25rem 0;
+  transition: color var(--transition-normal);
 }
 
+/* User's tagline or email */
 .userCard p {
   font-size: 0.9rem;
-  color: #5f5f5f;
+  color: var(--color-text-secondary);
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 }
 
+/* User info container */
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Generic button style for consistency */
+.actionButton {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Media query for smaller screens */
 @media (max-width: 768px) {
-  .userCard {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  .container {
     padding: 1rem;
   }
 
-  .userCard_img {
-    width: 50px;
-    height: 50px;
+  .discoverHeading {
+    font-size: 2rem;
   }
-}
-.discoverHeading {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  color: #0a66c2;
-  margin-bottom: 2rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
 
-.discoverHeading::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background-color: #0a66c2;
-  border-radius: 2px;
+  .userProfile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .userCard {
+    padding: 1rem;
+  }
+  
+  .userCard_img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .userCard h2 {
+    font-size: 1rem;
+  }
+  
+  .userCard p {
+    font-size: 0.8rem;
+  }
 }

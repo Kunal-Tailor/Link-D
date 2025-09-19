@@ -33,6 +33,10 @@ const PostSchema =mongoose.Schema({
     fileType:{
         type: String,
         default: ''
+    },
+    likedByUsers: {
+        type: [mongoose.Schema.Types.ObjectId],
+        default: []
     }
 })
 

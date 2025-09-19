@@ -6,12 +6,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import clientServer, { BASE_URL } from '@/config';
 import style from "./index.module.css"
+import { useTheme } from '@/contexts/ThemeContext';
 
 function ProfilePage() {
      const dispatch = useDispatch();
 
   const authState = useSelector((state) => state.auth);
   const postReducer = useSelector((state) => state.postReducer);
+  const { colors } = useTheme();
 
   const [userProfile, setUserProfile] =useState({})
   const [userPosts, setUserPosts] = useState([])
@@ -130,7 +132,7 @@ const request = await clientServer.post("/user_update", {
             </div>
 
             <div  style={{display:"flex", alignItems:"center", gap:"1.2rem"}}  >
-            <p  style={{color:"gray"}} > @{userProfile.userId.username} </p>
+            <p  style={{color: colors.textSecondary}} > @{userProfile.userId.username} </p>
 
           
            
@@ -155,7 +157,7 @@ const request = await clientServer.post("/user_update", {
 
           <div style={{flex:"0.2"}} >
 
-            <h3>Recent Activity</h3>
+            <h3 style={{color: colors.text}}>Recent Activity</h3>
              {userPosts.map((post) => {
               
               
@@ -191,7 +193,7 @@ const request = await clientServer.post("/user_update", {
       </div>
 
   <div className="workHistory">
-    <h4>Work History</h4>
+    <h4 style={{color: colors.text}}>Work History</h4>
     <div className={style.workHistoryContainer} >
       {
         userProfile.pastWork?.map((work,   index) => {

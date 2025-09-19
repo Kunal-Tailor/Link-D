@@ -5,11 +5,13 @@ import { useRouter } from 'next/router'
 import styles from "./style.module.css"
 import { loginUser, registerUser } from '@/config/redux/action/authAction'
 import { emptyMessage } from '@/config/redux/reducer/authReducer'
+import { useTheme } from '@/contexts/ThemeContext'
+import ThemeToggle from '@/Components/ThemeToggle'
 
 function LoginComponent() {
 
-
     const authState=useSelector((state)=>state.auth)
+    const { colors } = useTheme();
 
     const router=useRouter();
 
@@ -63,9 +65,11 @@ function LoginComponent() {
         <div className={styles.container}>
             <div className={styles.cardContainer}>
             <div className={styles.cardContainer_left}>
-
-                <p className={styles.cardleft_heading}>{userLoginMethod ? "Sign In" :"Sign Up"}</p>
-                <p style={{color: authState.isError ? "red" : "green"}}>{authState.message.message} </p>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem'}}>
+                    <p className={styles.cardleft_heading}>{userLoginMethod ? "Sign In" :"Sign Up"}</p>
+                    <ThemeToggle />
+                </div>
+                <p style={{color: authState.isError ? colors.error : colors.success}}>{authState.message.message} </p>
 
                 <div className={styles.inputContainers}>
                     {!userLoginMethod && <div className={styles.inputRow}>
